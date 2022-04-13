@@ -1,22 +1,18 @@
 using LanguageExt;
-using LanguageExt.Sys.Live;
+using Microsoft.Extensions.Hosting;
 using static LanguageExt.Prelude;
 
 var q = (Job1Aff(), Job2Aff()).Sequence();
+await q.Run();
 
-var rt = Runtime.New();
-
-await q.Run(rt).ConfigureAwait(false);
-
-
-Aff<Runtime, Unit> Job1Aff() => Eff<Runtime, Unit>(rt =>
+Aff<Unit> Job1Aff() => Eff(() =>
 {
     Console.WriteLine($"{DateTime.Now} Job1");
     return unit;
-}).Repeat(Schedule.Recurs(10) | Schedule.Exponential(1));
+}).ToAsync().Repeat(Schedule.Recurs(10) | Schedule.Exponential(1));
 
-Aff<Runtime, Unit> Job2Aff() => Eff<Runtime, Unit>(rt =>
+Aff<Unit> Job2Aff() => Eff(() =>
 {
     Console.WriteLine($"{DateTime.Now} Job2");
     return unit;
-}).Repeat(Schedule.Recurs(10) | Schedule.Exponential(1));
+}).ToAsync().Repeat(Schedule.Recurs(10) | Schedule.Exponential(1));
