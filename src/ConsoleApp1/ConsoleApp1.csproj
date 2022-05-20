@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LanguageExt.Core" Version="4.0.8-beta" />
+    <PackageReference Include="LanguageExt.Core" Version="4.1.1" />
     <PackageReference Include="LanguageExt.Sys" Version="4.0.8-beta" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
